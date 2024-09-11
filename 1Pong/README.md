@@ -4,6 +4,6 @@ My pick for Game 1 of the 20GC (20 Games Challenge) is Pong, I don't have any pa
 
 ## To Do:
 - ~~Refactor code~~
-- Add sounds
+- ~~Add sounds~~
 - Allow for user to input desired win condition
 - Add CPUPlayer option for player two

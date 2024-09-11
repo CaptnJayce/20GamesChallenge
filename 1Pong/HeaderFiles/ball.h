@@ -10,6 +10,8 @@ public:
     int speedX;
     int score1;
     int score2;
+    Sound sound1;
+    Sound sound2;
 
     Ball(float startX, float startY);
     void Draw();

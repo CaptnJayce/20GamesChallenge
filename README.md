@@ -4,7 +4,12 @@ Just some basic information for now
 
 I will be documenting my attempt at the 20 games Challenge by SDG Games for accountability and a reference for the future (link to the challenge below):
 
-Notes:
+## How to play:
+- Ensure you have g++ installed 
+- Run the build.bash with "bash build.bash" command from the terminal
+- This should work for all games, if any adjustments are needed they will be mentioned in further READMEs
+
+## Notes:
 - This challenge will be done with C++ and Raylib
 - Games will be listed chronologically
 - Extra information will be in a designated README.md for each game
@@ -13,7 +18,7 @@ Notes:
 
 This is a project for me to learn from and for future me to refer to, there will be lots of mistakes - both embarassing and understandable, as well as a lot of amateur decisions, but that is to be expected and ultimately the point of this challenge.  
 
-Links:\
+## Links:
 https://20_games_challenge.gitlab.io/
 
 

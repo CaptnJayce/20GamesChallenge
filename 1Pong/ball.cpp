@@ -13,6 +13,8 @@ Ball::Ball(float startX, float startY) {
     radius = 20;
     score1 = 0;
     score2 = 0;
+    sound1 = LoadSound("Sounds/collision.wav");
+    sound2 = LoadSound("Sounds/score.wav");
 }
 
 void Ball::Draw() {
@@ -26,16 +28,20 @@ void Ball::Update() {
     // Collision
     if (centerY + radius >= screenHeight || centerY - radius <= 0) {
         speedY *= -1;
+        PlaySound(sound1);
     }
     if (centerX + radius >= screenWidth || centerX - radius <= 0) {
         speedX *= -1;
+        PlaySound(sound1);
     }
 
     // Scoring
     if (centerX + radius >= screenWidth) {
         score2++;
+        PlaySound(sound2);
     }
     if (centerX - radius <= 0) {
         score1++;
+        PlaySound(sound2);
     }
 }

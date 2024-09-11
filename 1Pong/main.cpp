@@ -12,6 +12,7 @@ float screenHeight = 750;
 float screenWidth = 1200;
 
 int main() {
+    InitAudioDevice();
     Player player1(40, screenHeight / 2 - 50);
     Player player2(screenWidth - 60, screenHeight / 2 - 50);
     Ball ball(screenWidth / 2, screenHeight / 2);
@@ -38,10 +39,12 @@ int main() {
         // Collision
         if (CheckCollisionCircleRec(Vector2{ball.centerX, ball.centerY}, ball.radius, Rectangle{player1.posX, player1.posY, player1.width, player1.height})) {
             ball.speedX *= -1;
+            PlaySound(ball.sound1);
         }
 
         if (CheckCollisionCircleRec(Vector2{ball.centerX, ball.centerY}, ball.radius, Rectangle{player2.posX, player2.posY, player2.width, player2.height})) {
             ball.speedX *= -1;
+            PlaySound(ball.sound1);
         }
 
         ClearBackground(black);
