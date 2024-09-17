@@ -1,5 +1,6 @@
 #pragma once
 #include <raylib.h>
+#include <iostream>
 
 class Room {
 public:
@@ -11,6 +12,7 @@ public:
     float posY;
 
     Room(float roomX, float roomY);
+
     void Draw();
 };
 
