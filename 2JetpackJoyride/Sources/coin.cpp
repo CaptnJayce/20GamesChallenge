@@ -1,4 +1,4 @@
-#include "HeaderFiles/coin.h"
+#include "../HeaderFiles/coin.h"
 #include <raylib.h>
 
 Coin::Coin(float coinX, float coinY) {

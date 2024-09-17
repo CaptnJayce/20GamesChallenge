@@ -4,9 +4,9 @@
 #include <raylib.h>
 #include <vector>
 
-#include "HeaderFiles/room.h"
-#include "HeaderFiles/player.h"
-#include "HeaderFiles/coin.h"
+#include "../HeaderFiles/room.h"
+#include "../HeaderFiles/player.h"
+#include "../HeaderFiles/coin.h"
 
 using namespace std;
 
