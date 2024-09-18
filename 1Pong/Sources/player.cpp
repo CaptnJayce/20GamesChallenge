@@ -1,4 +1,4 @@
-#include "HeaderFiles/player.h"
+#include "../HeaderFiles/player.h"
 #include <raylib.h>
 
 extern float screenHeight;

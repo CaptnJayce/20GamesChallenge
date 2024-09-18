@@ -1,7 +1,7 @@
 #include <iostream>
 #include <raylib.h>
-#include "HeaderFiles/player.h"
-#include "HeaderFiles/ball.h"
+#include "../HeaderFiles/player.h"
+#include "../HeaderFiles/ball.h"
 
 using namespace std;
 

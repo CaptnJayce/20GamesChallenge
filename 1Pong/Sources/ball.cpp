@@ -1,4 +1,4 @@
-#include "HeaderFiles/ball.h"
+#include "../HeaderFiles/ball.h"
 #include <raylib.h>
 
 extern float screenHeight;
@@ -13,8 +13,8 @@ Ball::Ball(float startX, float startY) {
     radius = 20;
     score1 = 0;
     score2 = 0;
-    sound1 = LoadSound("Sounds/collision.wav");
-    sound2 = LoadSound("Sounds/score.wav");
+    sound1 = LadSound("../Sounds/collision.wav");
+    sound2 = LoadSound("../Sounds/score.wav");
 }
 
 void Ball::Draw() {
