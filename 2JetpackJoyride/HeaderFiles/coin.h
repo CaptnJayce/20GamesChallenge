@@ -1,5 +1,7 @@
 #pragma once
 #include <raylib.h>
+#include <vector>
+#include "player.h"
 
 class Coin {
 public:
@@ -13,3 +15,4 @@ public:
     void Draw();
 };
 
+void coinSpawner(Player& player, std::vector<Coin>& coins);

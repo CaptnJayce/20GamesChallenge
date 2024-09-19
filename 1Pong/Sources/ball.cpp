@@ -13,7 +13,7 @@ Ball::Ball(float startX, float startY) {
     radius = 20;
     score1 = 0;
     score2 = 0;
-    sound1 = LadSound("../Sounds/collision.wav");
+    sound1 = LoadSound("../Sounds/collision.wav");
     sound2 = LoadSound("../Sounds/score.wav");
 }
 
