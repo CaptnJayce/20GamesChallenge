@@ -8,6 +8,8 @@ using namespace std;
 Color black = {0, 0, 0, 255};
 Color white = {255, 255, 255, 255};
 
+int font = 20;
+
 float screenHeight = 750;
 float screenWidth = 1200;
 
@@ -16,8 +18,6 @@ int main() {
     Player player1(40, screenHeight / 2 - 50);
     Player player2(screenWidth - 60, screenHeight / 2 - 50);
     Ball ball(screenWidth / 2, screenHeight / 2);
-
-    int font = 20;
 
     cout << "Starting Game" << endl;
     InitWindow(screenWidth, screenHeight + 50, "Pong");

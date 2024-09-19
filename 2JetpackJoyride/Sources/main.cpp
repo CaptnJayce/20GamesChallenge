@@ -17,29 +17,62 @@ int spacing;
 int coinSpacing = 40;
 
 int dist = 0;
-int coinDist = 10;
+int coinDist = 200;
+
+int totalCoins = 0;
 
 vector<Coin> coins;
 Player player(50, 600);
+
+// checks for collision with coins
+// thank you chatGPT lol
+void checkPlayerCoinCollision(Player &player) {
+    for (auto it = coins.begin(); it != coins.end();) {
+        if (CheckCollisionCircleRec((Vector2){it->posX, it->posY}, it->radius, (Rectangle){player.posX, player.posY, (float)player.width, (float)player.height})) {
+            totalCoins += 1;
+            it = coins.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
+}
 
 // this could likely be optimised a lot
 void coinSpawner() {
     srand(time(0));
 
-    int coinsToSpawn = (rand() % 5) + 1;
-    int coinPattern = (rand() % 2) + 1;
-    float coinHeight = ((float) rand() / (float) RAND_MAX) * (700.0 - 100.0) + 100.0;
+    const int coinsToSpawn = (rand() % 5) + 1;
+    const int coinPattern = (rand() % 3) + 1;
+    const float coinHeight = ((float)rand() / (float)RAND_MAX) * (700.0 - 100.0) + 100.0;
 
     cout << coinsToSpawn << endl;
-    cout << coinPattern << endl;
 
+    // Straight line
     if (coinPattern == 1) {
         for (int i = 0; i < coinsToSpawn; i++) {
             coins.push_back({Coin((player.posX + screenWidth) + 100 + coinSpacing, coinHeight)});
-            coinSpacing += 100;
+            coinSpacing += 50;
         }
-    } else {
-        cout << "nuh uh" << endl;
+        coinSpacing = 50;
+    }
+
+    // Diagonal down
+    if (coinPattern == 2) {
+        for (int i = 0; i < coinsToSpawn; i++) {
+            coins.push_back({Coin((player.posX + screenWidth) + 100 + coinSpacing, 100.0 + coinSpacing)});
+            coinSpacing += 50;
+        }
+        coinSpacing = 50;
+    }
+
+    // Diagonal up
+    if (coinPattern == 3) {
+        for (int i = 0; i < coinsToSpawn; i++) {
+            coins.push_back({Coin((player.posX + screenWidth) + 100 + coinSpacing, 700.0 - coinSpacing)});
+            coinSpacing += 50;
+        }
+        coinSpacing = 50;
     }
 }
 
@@ -60,11 +93,14 @@ int main() {
 
     while (WindowShouldClose() == false) {
         player.Update(KEY_SPACE);
+
         dist += 1;
 
         camera.target = (Vector2) {
             player.posX + 20, screenHeight / 2.0f
         };
+
+        checkPlayerCoinCollision(player);
 
         if (player.posX + screenWidth > spacing) {
             roof.push_back({Room(0 + spacing, 40)});
@@ -96,9 +132,12 @@ int main() {
             coins[i].Draw();
         }
 
+        // coin score
         player.Draw();
         EndMode2D();
 
+        // draws in screen space after camera has ended
+        DrawText(TextFormat("%i", totalCoins), screenWidth/2, screenHeight - 20, 20, {255, 255, 255, 255});
         EndDrawing();
     }
 
