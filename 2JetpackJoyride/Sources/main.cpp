@@ -16,25 +16,36 @@ int screenHeight = 800;
 int spacing;
 int coinSpacing = 40;
 
-vector<Coin> coins;
+int dist = 0;
+int coinDist = 10;
 
+vector<Coin> coins;
+Player player(50, 600);
+
+// this could likely be optimised a lot
 void coinSpawner() {
     srand(time(0));
 
     int coinsToSpawn = (rand() % 5) + 1;
-    cout << coinsToSpawn << endl;
+    int coinPattern = (rand() % 2) + 1;
+    float coinHeight = ((float) rand() / (float) RAND_MAX) * (700.0 - 100.0) + 100.0;
 
-    for (int i = 0; i < coinsToSpawn; i++) {
-        coins.push_back({Coin(100 + coinSpacing, 200)});
-        coinSpacing += 100;
+    cout << coinsToSpawn << endl;
+    cout << coinPattern << endl;
+
+    if (coinPattern == 1) {
+        for (int i = 0; i < coinsToSpawn; i++) {
+            coins.push_back({Coin((player.posX + screenWidth) + 100 + coinSpacing, coinHeight)});
+            coinSpacing += 100;
+        }
+    } else {
+        cout << "nuh uh" << endl;
     }
 }
 
 int main() {
     vector<Room> roof;
     vector<Room> floor;
-
-    Player player(50, 600);
 
     Camera2D camera = { 0 };
     camera.offset = (Vector2) {
@@ -49,6 +60,7 @@ int main() {
 
     while (WindowShouldClose() == false) {
         player.Update(KEY_SPACE);
+        dist += 1;
 
         camera.target = (Vector2) {
             player.posX + 20, screenHeight / 2.0f
@@ -58,13 +70,17 @@ int main() {
             roof.push_back({Room(0 + spacing, 40)});
             floor.push_back({Room(0 + spacing, screenHeight - 80)});
             spacing += 2000;
-            coinSpawner();
         }
 
-        // check if vector is empty and if its far enough off screen to not be seen when unloading
+        // check if vector is empty and if its far enough off-screen to not be seen when unloading
         if (!roof.empty() && roof.front().posX + 2000 < player.posX - screenWidth / 10.0f) {
             roof.erase(roof.begin());
             floor.erase(floor.begin());
+        }
+
+        if (dist > coinDist) {
+            dist = 0;
+            coinSpawner();
         }
 
         BeginDrawing();
@@ -88,3 +104,4 @@ int main() {
 
     CloseWindow();
 }
+
