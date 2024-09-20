@@ -1,3 +1,16 @@
+// TO DO //
+
+// REFACTORING
+// Camera
+// Coin Generation
+// Texture Handling
+
+// IMPLEMENTATION
+// Sounds
+// Floor + Roof Textures
+// Backgrounds
+// Speed Curve
+
 #include <cstdlib>
 #include <iostream>
 #include <ostream>
@@ -47,7 +60,6 @@ int main() {
     vector<Room> roof;
     vector<Room> floor;
 
-
     Camera2D camera = { 0 };
     camera.offset = (Vector2) {
         screenWidth/10.0f, screenHeight/2.0f
@@ -60,11 +72,7 @@ int main() {
     SetTargetFPS(60);
 
     Texture2D playerTexture = LoadTexture("../Sprites/jetpackjimmy.png");
-    if (playerTexture.width == 0 || playerTexture.height == 0) {
-        cout << "Failed to load texture" << endl;
-    } else {
-        cout << "Loading texture...!!!!!" << endl;
-    }
+    Texture2D coinTexture = LoadTexture("../Sprites/coin.png");
 
     while (WindowShouldClose() == false) {
         if (currentScreen == MENU) {
@@ -126,6 +134,7 @@ int main() {
 
             for (int i = 0; i < coins.size(); i++) {
                 coins[i].Draw();
+                DrawTextureEx(coinTexture, Vector2(coins[i].posX - (coinTexture.height / 2), coins[i].posY - (coinTexture.width / 2)), 0, 1, WHITE);
             }
 
             player.Draw();

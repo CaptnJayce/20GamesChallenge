@@ -2,7 +2,13 @@
 #include <cstdlib>
 #include <iostream>
 
-Coin::Coin(float coinX, float coinY) : posX(coinX), posY(coinY), radius(20), value(1), color(YELLOW){}
+Coin::Coin(float coinX, float coinY) {
+    posX = coinX;
+    posY = coinY;
+    radius = 20;
+    value = 1;
+    color = {0, 255, 0, 50};
+}
 
 void Coin::Draw() {
     DrawCircle(posX, posY, radius, color);
