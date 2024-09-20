@@ -5,11 +5,11 @@ extern int screenHeight;
 
 Player::Player(float playerX, float playerY) {
     height = 60;
-    width = 50;
+    width = 40;
     speed = 400;
     posX = playerX;
     posY = playerY;
-    color = {240, 15, 15, 255};
+    color = {240, 15, 15, 50};
 }
 
 void Player::Draw() {
