@@ -10,6 +10,7 @@ Player::Player(float playerX, float playerY) {
     posX = playerX;
     posY = playerY;
     color = {240, 15, 15, 50};
+    dist = 0;
 }
 
 void Player::Draw() {
@@ -34,4 +35,6 @@ void Player::Update(int moveUp) {
     if (posY <= 80) {
         posY = 80;
     }
+
+    dist++;
 }

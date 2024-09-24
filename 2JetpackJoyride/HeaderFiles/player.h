@@ -9,6 +9,8 @@ public:
     float posY;
     int height;
     int width;
+    int dist;
+
     Color color;
 
     Player(float playerX, float playerY);

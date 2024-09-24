@@ -9,10 +9,12 @@ public:
     float posX;
     float posY;
     int radius;
+    int total;
+    Sound coin;
+
     Color color;
 
     Coin(float coinX, float coinY);
     void Draw();
+    void Update(Player& player, std::vector<Coin>& coins);
 };
-
-void coinSpawner(Player& player, std::vector<Coin>& coins);
