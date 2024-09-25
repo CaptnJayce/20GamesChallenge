@@ -13,9 +13,7 @@ Player::Player(float playerX, float playerY) {
     dist = 0;
 }
 
-void Player::Draw() {
-    DrawRectangle(posX, posY, width, height, color);
-}
+void Player::Draw() { DrawRectangle(posX, posY, width, height, color); }
 
 void Player::Update(int moveUp) {
     float dt = GetFrameTime();

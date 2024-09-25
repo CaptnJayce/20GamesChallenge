@@ -27,6 +27,8 @@ enum GameScreen { MENU, GAME, GAME_OVER };
 int screenWidth = 1200;
 int screenHeight = 800;
 
+int prevTotal;
+
 int spacing;
 
 int totalDistance;
@@ -37,6 +39,9 @@ Player player(50, 600);
 
 int main() {
     InitAudioDevice();
+
+    Sound pressed = LoadSound("../Sounds/soundTest.mp3");
+    Sound coinPickup = LoadSound("../Sounds/pickup.mp3");
 
     GameScreen currentScreen = MENU;
 
@@ -54,10 +59,12 @@ int main() {
 
     Texture2D playerTexture = LoadTexture("../Sprites/jetpackjimmy.png");
     Texture2D coinTexture = LoadTexture("../Sprites/coin.png");
+    Texture2D backgroundTexture = LoadTexture("../Backgrounds/background1.png");
 
     while (WindowShouldClose() == false) {
         if (currentScreen == MENU) {
             if (IsKeyPressed(KEY_ENTER)) {
+                PlaySound(pressed);
                 currentScreen = GAME;
             } else if (IsKeyPressed(KEY_ESCAPE)) {
                 CloseWindow();
@@ -71,25 +78,23 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
         if (currentScreen == MENU) {
-            DrawText("Main Menu",
-                     screenWidth / 2 - MeasureText("Main Menu", 60) / 2, 50, 60,
-                     WHITE);
+            DrawText("Main Menu", screenWidth / 2 - MeasureText("Main Menu", 60) / 2, 50, 60, WHITE);
             DrawRectangle(screenWidth / 3, 110, screenWidth / 3, 4, WHITE);
-            DrawText("Press Enter to Play",
-                     screenWidth / 2 -
-                         MeasureText("Press Enter to Play", 30) / 2,
+            DrawText("Press Enter to Play", screenWidth / 2 - MeasureText("Press Enter to Play", 30) / 2,
                      screenHeight / 2, 30, WHITE);
-            DrawText("Press Escape to Quit",
-                     screenWidth / 2 -
-                         MeasureText("Press Escape to Quit", 30) / 2,
+            DrawText("Press Escape to Quit", screenWidth / 2 - MeasureText("Press Escape to Quit", 30) / 2,
                      screenHeight / 2 + 40, 30, WHITE);
         } else if (currentScreen == GAME) {
-
+            prevTotal = coin.total;
             // Game rendering goes here
             player.Update(KEY_SPACE);
             coin.Update(player, coins);
 
-            cout << player.dist << endl;
+            if (coin.total > prevTotal) {
+                PlaySound(coinPickup);
+            }
+
+            /* cout << player.dist << endl; */
             totalDistance += 1;
 
             camera.target = (Vector2){player.posX + 20, screenHeight / 2.0f};
@@ -113,30 +118,25 @@ int main() {
             for (int i = 0; i < roof.size(); i++) {
                 roof[i].Draw();
                 floor[i].Draw();
+
+                DrawTextureEx(backgroundTexture, Vector2{roof[i].posX, roof[i].posY + 40}, 0, 2, WHITE);
             }
 
             for (int i = 0; i < coins.size(); i++) {
                 coins[i].Draw();
-                DrawTextureEx(
-                    coinTexture,
-                    Vector2{static_cast<float>(coins[i].posX -
-                                               (coinTexture.height / 2.0)),
-                            static_cast<float>(coins[i].posY -
-                                               (coinTexture.width / 2.0))},
-                    0, 1, WHITE);
+                DrawTextureEx(coinTexture, Vector2{
+                                  static_cast<float>(coins[i].posX - (coinTexture.height / 2.0)),
+                                  static_cast<float>(coins[i].posY - (coinTexture.width / 2.0))
+                              }, 0, 1, WHITE);
             }
 
             player.Draw();
-            DrawTextureEx(playerTexture,
-                          Vector2{player.posX - 10, player.posY - 5}, 0, 1,
-                          WHITE);
+            DrawTextureEx(playerTexture, Vector2{player.posX - 10, player.posY - 5}, 0, 1, WHITE);
             EndMode2D();
 
             // draws in screen space after camera has ended
-            DrawText(TextFormat("%i", coin.total), screenWidth / 2,
-                     screenHeight - 20, 20, WHITE);
-            DrawText(TextFormat("%i", totalDistance / 10), screenWidth / 4,
-                     screenHeight - 20, 20, WHITE);
+            DrawText(TextFormat("%i", coin.total), screenWidth / 2, screenHeight - 20, 20, WHITE);
+            DrawText(TextFormat("%i", totalDistance / 10), screenWidth / 4, screenHeight - 20, 20, WHITE);
         }
 
         EndDrawing();

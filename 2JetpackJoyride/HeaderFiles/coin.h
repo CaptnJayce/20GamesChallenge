@@ -10,7 +10,6 @@ public:
     float posY;
     int radius;
     int total;
-    Sound coin;
 
     Color color;
 

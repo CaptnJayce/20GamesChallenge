@@ -6,11 +6,10 @@ Room::Room(float roomX, float roomY) {
     width = 2000;
     posX = roomX;
     posY = roomY;
-    color = {255, 255, 255, 255};
+    image = LoadImage("../Backgrounds/background1.png");
+    background = LoadTextureFromImage(image);
 }
 
 void Room::Draw() {
-    DrawRectangle(posX, posY, width, height, color);
+    DrawRectangle(posX, posY, width, height, WHITE);
 }
-
-

@@ -1,6 +1,5 @@
 #pragma once
 #include <raylib.h>
-#include <iostream>
 
 class Room {
 public:
@@ -10,6 +9,9 @@ public:
 
     float posX;
     float posY;
+
+    Image image;
+    Texture2D background;
 
     Room(float roomX, float roomY);
 

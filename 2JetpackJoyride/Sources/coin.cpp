@@ -11,7 +11,7 @@ Coin::Coin(float coinX, float coinY) {
     radius = 20;
     value = 1;
     total = 0;
-    coin = LoadSound("../Sounds/coin.wav");
+
     color = {0, 255, 0, 50};
 }
 
@@ -55,7 +55,6 @@ void Coin::Update(Player& player, std::vector<Coin>& coins) {
     // Collisions
     for (auto it = coins.begin(); it != coins.end();) {
         if (CheckCollisionCircleRec((Vector2){it->posX, it->posY}, it->radius, (Rectangle){player.posX, player.posY, (float)player.width, (float)player.height})) {
-            PlaySound(coin);
             it = coins.erase(it);
             total += 1;
         }
