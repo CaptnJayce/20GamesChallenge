@@ -6,7 +6,7 @@ I chose Jetpack Joyride because I want to tackle the infinite object generation 
 - ~~Generate floors and ceilings infinitely~~
 - ~~Generate coins infinitely~~
 - ~~Main menu~~
-- Pause menu 
+- ~~Pause menu~~ 
 - Restart menu
 - Track high scores (coin & distance)
 - Sprites for player, floor/roof, background, coins, obstacles.
