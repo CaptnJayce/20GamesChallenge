@@ -192,6 +192,7 @@ int main() {
                                                  (laserTexture.width / 4.0))},
                       0, 0.5, WHITE);
       }
+
       player.Draw();
       DrawTextureEx(playerTexture, Vector2{player.posX - 10, player.posY - 5},
                     0, 1, WHITE);

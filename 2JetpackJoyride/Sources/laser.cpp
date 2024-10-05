@@ -18,22 +18,18 @@ void Laser::Draw() { DrawRectangle(posX, posY, width, height, color); }
 
 void Laser::Update(Player &player, std::vector<Laser> &laser) {
 
-  if (player.dist > 200) {
-    srand(time(0));
+  srand(time(0));
 
-    const int laserPattern = (rand() % 2) + 1;
+  const int laserPattern = (rand() % 2) + 1;
 
-    // LASER SPAWNER
-    if (laserPattern == 4) {
-      std::cout << "spawning laser pattern 1" << std::endl;
-      laser.push_back(Laser(player.posX + 1200 + 100, 700.0));
-    }
+  // LASER SPAWNER
+  if (laserPattern == 4) {
+    std::cout << "spawning laser pattern 1" << std::endl;
+    laser.push_back(Laser(player.posX + 1200 + 100, 700.0));
+  }
 
-    if (laserPattern == 5) {
-      std::cout << "spawning laser pattern 2" << std::endl;
-    }
-
-    player.dist = 0;
+  if (laserPattern == 5) {
+    std::cout << "spawning laser pattern 2" << std::endl;
   }
 
   // Collisions

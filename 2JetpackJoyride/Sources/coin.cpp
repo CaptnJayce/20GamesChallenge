@@ -19,7 +19,9 @@ void Coin::Draw() { DrawCircle(posX, posY, radius, color); }
 
 void Coin::Update(Player &player, std::vector<Coin> &coin) {
 
-  if (player.dist > 200) {
+  if (player.toSpawn == 1) {
+    std::cout << "spawning coins" << std::endl;
+
     srand(time(0));
 
     const int coinsToSpawn = (rand() % 5) + 1;
@@ -55,7 +57,7 @@ void Coin::Update(Player &player, std::vector<Coin> &coin) {
       }
     }
 
-    player.dist = 0;
+    player.toSpawn = 0;
   }
 
   // Collisions

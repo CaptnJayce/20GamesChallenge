@@ -1,38 +1,47 @@
 #include "../HeaderFiles/player.h"
+#include <iostream>
 #include <raylib.h>
 
 extern int screenHeight;
 
 Player::Player(float playerX, float playerY) {
-    height = 60;
-    width = 40;
-    speed = 400;
-    posX = playerX;
-    posY = playerY;
-    color = {240, 15, 15, 50};
-    dist = 0;
+  height = 60;
+  width = 40;
+  speed = 400;
+  posX = playerX;
+  posY = playerY;
+  color = {240, 15, 15, 50};
+  dist = 0;
+  toSpawn = 1;
 }
 
 void Player::Draw() { DrawRectangle(posX, posY, width, height, color); }
 
 void Player::Update(int moveUp) {
-    float dt = GetFrameTime();
+  float dt = GetFrameTime();
 
-    posX += speed * dt;
+  posX += speed * dt;
 
-    if (IsKeyDown(moveUp)) {
-        posY -= speed * dt;
-    } else {
-        posY += 400 * dt;
-    }
+  if (IsKeyDown(moveUp)) {
+    posY -= speed * dt;
+  } else {
+    posY += 400 * dt;
+  }
 
-    if (posY >= screenHeight - (80 + height)) {
-        posY = screenHeight - (80 + height);
-    }
+  if (posY >= screenHeight - (80 + height)) {
+    posY = screenHeight - (80 + height);
+  }
 
-    if (posY <= 80) {
-        posY = 80;
-    }
+  if (posY <= 80) {
+    posY = 80;
+  }
 
-    dist++;
+  // pick to spawn coins or lasers
+  if (dist > 200) {
+    srand(time(0));
+    toSpawn = (rand() % 2) + 1;
+    dist = 0;
+  }
+
+  dist++;
 }

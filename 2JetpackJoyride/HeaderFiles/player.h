@@ -3,17 +3,18 @@
 
 class Player {
 public:
-    int moveUp;
-    float speed;
-    float posX;
-    float posY;
-    int height;
-    int width;
-    int dist;
+  int moveUp;
+  float speed;
+  float posX;
+  float posY;
+  int height;
+  int width;
+  int dist;
+  int toSpawn;
 
-    Color color;
+  Color color;
 
-    Player(float playerX, float playerY);
-    void Draw();
-    void Update(int moveUp);
+  Player(float playerX, float playerY);
+  void Draw();
+  void Update(int moveUp);
 };
