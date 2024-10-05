@@ -1,11 +1,11 @@
-#include "../HeaderFiles/entity.h"
+#include "../HeaderFiles/coin.h"
 #include "../HeaderFiles/player.h"
 #include <cstdlib>
 #include <iostream>
 #include <raylib.h>
 #include <vector>
 
-Entity::Entity(float obstX, float obstY) {
+Coin::Coin(float obstX, float obstY) {
   posX = obstX;
   posY = obstY;
   radius = 15;
@@ -15,16 +15,15 @@ Entity::Entity(float obstX, float obstY) {
   color = {0, 255, 0, 50};
 }
 
-void Entity::Draw() { DrawCircle(posX, posY, radius, color); }
+void Coin::Draw() { DrawCircle(posX, posY, radius, color); }
 
-void Entity::Update(Player &player, std::vector<Entity> &obstacle,
-                    std::vector<Entity> &coin) {
+void Coin::Update(Player &player, std::vector<Coin> &coin) {
 
   if (player.dist > 200) {
     srand(time(0));
 
     const int coinsToSpawn = (rand() % 5) + 1;
-    const int coinPattern = (rand() % 5) + 1;
+    const int coinPattern = (rand() % 3) + 1;
     int coinSpacing = 50;
     const float coinHeight =
         ((float)rand() / (float)RAND_MAX) * (700.0 - 100.0) + 100.0;
@@ -33,8 +32,7 @@ void Entity::Update(Player &player, std::vector<Entity> &obstacle,
     // Straight line
     if (coinPattern == 1) {
       for (int i = 0; i < coinsToSpawn; i++) {
-        coin.push_back(
-            Entity(player.posX + 1200 + 100 + coinSpacing, coinHeight));
+        coin.push_back(Coin(player.posX + 1300 + coinSpacing, coinHeight));
         coinSpacing += 50;
       }
     }
@@ -42,8 +40,8 @@ void Entity::Update(Player &player, std::vector<Entity> &obstacle,
     // Diagonal down
     if (coinPattern == 2) {
       for (int i = 0; i < coinsToSpawn; i++) {
-        coin.push_back(Entity(player.posX + 1200 + 100 + coinSpacing,
-                              100.0 + coinSpacing));
+        coin.push_back(
+            Coin(player.posX + 1300 + coinSpacing, 100.0 + coinSpacing));
         coinSpacing += 50;
       }
     }
@@ -51,19 +49,10 @@ void Entity::Update(Player &player, std::vector<Entity> &obstacle,
     // Diagonal up
     if (coinPattern == 3) {
       for (int i = 0; i < coinsToSpawn; i++) {
-        coin.push_back(Entity(player.posX + 1200 + 100 + coinSpacing,
-                              700.0 - coinSpacing));
+        coin.push_back(
+            Coin(player.posX + 1300 + coinSpacing, 700.0 - coinSpacing));
         coinSpacing += 50;
       }
-    }
-
-    // OBSTACLES SPAWNER
-    if (coinPattern == 4) {
-      std::cout << "spawning laser pattern 1" << std::endl;
-    }
-
-    if (coinPattern == 5) {
-      std::cout << "spawning laser pattern 2" << std::endl;
     }
 
     player.dist = 0;

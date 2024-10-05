@@ -3,7 +3,7 @@
 #include <raylib.h>
 #include <vector>
 
-class Entity {
+class Coin {
 public:
   int value;
   float posX;
@@ -13,8 +13,7 @@ public:
 
   Color color;
 
-  Entity(float coinX, float coinY);
+  Coin(float coinX, float coinY);
   void Draw();
-  void Update(Player &player, std::vector<Entity> &obstacle,
-              std::vector<Entity> &coin);
+  void Update(Player &player, std::vector<Coin> &coin);
 };

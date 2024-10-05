@@ -17,7 +17,8 @@
 #include <raylib.h>
 #include <vector>
 
-#include "../HeaderFiles/entity.h"
+#include "../HeaderFiles/coin.h"
+#include "../HeaderFiles/laser.h"
 #include "../HeaderFiles/player.h"
 #include "../HeaderFiles/room.h"
 
@@ -38,10 +39,10 @@ bool muted = false;
 
 float volume = 0.2;
 
-vector<Entity> coins;
-vector<Entity> obstacles;
-Entity coin(50, 50);
-Entity obstacle(50, 50);
+vector<Coin> coins;
+vector<Laser> lasers;
+Coin coin(50, 50);
+Laser laser(50, 50);
 Player player(50, 600);
 
 int main() {
@@ -70,6 +71,7 @@ int main() {
   Texture2D backgroundTexture = LoadTexture("../Backgrounds/background1.png");
   Texture2D floorTexture = LoadTexture("../Backgrounds/floor.png");
   Texture2D roofTexutre = LoadTexture("../Backgrounds/roof.png");
+  Texture2D laserTexture = LoadTexture("../Sprites/obstacle.png");
 
   while (WindowShouldClose() == false) {
     if (currentScreen == MENU) {
@@ -122,7 +124,8 @@ int main() {
       prevTotal = coin.total;
 
       player.Update(KEY_SPACE);
-      coin.Update(player, obstacles, coins);
+      coin.Update(player, coins);
+      laser.Update(player, lasers);
 
       if (coin.total > prevTotal) {
         PlaySound(coinPickup);
@@ -147,13 +150,13 @@ int main() {
         floor.erase(floor.begin());
       }
 
-      if (!obstacles.empty()) {
-        obstacles.erase(remove_if(obstacles.begin(), obstacles.end(),
-                                  [&](const Entity &obstacle) {
-                                    return obstacle.posX <
-                                           player.posX - screenWidth / 10.0f;
-                                  }),
-                        obstacles.end());
+      if (!coins.empty()) {
+        coins.erase(remove_if(coins.begin(), coins.end(),
+                              [&](const Coin &coin) {
+                                return coin.posX <
+                                       player.posX - screenWidth / 10.0f;
+                              }),
+                    coins.end());
       }
 
       BeginMode2D(camera);
@@ -180,6 +183,15 @@ int main() {
             0, 0.5, WHITE);
       }
 
+      for (int i = 0; i < lasers.size(); i++) {
+        lasers[i].Draw();
+        DrawTextureEx(laserTexture,
+                      Vector2{static_cast<float>(lasers[i].posX -
+                                                 (laserTexture.height / 4.0)),
+                              static_cast<float>(lasers[i].posY -
+                                                 (laserTexture.width / 4.0))},
+                      0, 0.5, WHITE);
+      }
       player.Draw();
       DrawTextureEx(playerTexture, Vector2{player.posX - 10, player.posY - 5},
                     0, 1, WHITE);
