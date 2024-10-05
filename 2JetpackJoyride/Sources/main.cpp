@@ -34,6 +34,8 @@ int spacing;
 
 int totalDistance;
 
+bool muted = false;
+
 float volume = 0.2;
 
 vector<Entity> coins;
@@ -78,6 +80,18 @@ int main() {
 
       if (IsKeyPressed(KEY_ESCAPE)) {
         CloseWindow();
+      }
+
+      if (IsKeyReleased(KEY_M)) {
+        if (muted == false) {
+          cout << "muted" << endl;
+          SetMasterVolume(0);
+          muted = true;
+        } else {
+          cout << "unmuted" << endl;
+          SetMasterVolume(volume);
+          muted = false;
+        }
       }
     }
 
@@ -161,9 +175,9 @@ int main() {
         DrawTextureEx(
             coinTexture,
             Vector2{
-                static_cast<float>(coins[i].posX - (coinTexture.height / 2.0)),
-                static_cast<float>(coins[i].posY - (coinTexture.width / 2.0))},
-            0, 1, WHITE);
+                static_cast<float>(coins[i].posX - (coinTexture.height / 4.0)),
+                static_cast<float>(coins[i].posY - (coinTexture.width / 4.0))},
+            0, 0.5, WHITE);
       }
 
       player.Draw();

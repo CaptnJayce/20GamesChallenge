@@ -8,7 +8,7 @@
 Entity::Entity(float obstX, float obstY) {
   posX = obstX;
   posY = obstY;
-  radius = 20;
+  radius = 15;
   value = 1;
   total = 0;
 
@@ -24,13 +24,12 @@ void Entity::Update(Player &player, std::vector<Entity> &obstacle,
     srand(time(0));
 
     const int coinsToSpawn = (rand() % 5) + 1;
-    const int coinPattern = (rand() % 4) + 1;
+    const int coinPattern = (rand() % 5) + 1;
     int coinSpacing = 50;
     const float coinHeight =
         ((float)rand() / (float)RAND_MAX) * (700.0 - 100.0) + 100.0;
 
     // COIN SPAWNER
-
     // Straight line
     if (coinPattern == 1) {
       for (int i = 0; i < coinsToSpawn; i++) {
@@ -60,7 +59,11 @@ void Entity::Update(Player &player, std::vector<Entity> &obstacle,
 
     // OBSTACLES SPAWNER
     if (coinPattern == 4) {
-      std::cout << "4" << std::endl;
+      std::cout << "spawning laser pattern 1" << std::endl;
+    }
+
+    if (coinPattern == 5) {
+      std::cout << "spawning laser pattern 2" << std::endl;
     }
 
     player.dist = 0;
