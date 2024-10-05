@@ -174,6 +174,7 @@ int main() {
       }
 
       for (int i = 0; i < coins.size(); i++) {
+        std::cout << "drawing coins" << std::endl;
         coins[i].Draw();
         DrawTextureEx(
             coinTexture,
@@ -184,13 +185,14 @@ int main() {
       }
 
       for (int i = 0; i < lasers.size(); i++) {
+        std::cout << "drawing laser" << std::endl;
         lasers[i].Draw();
         DrawTextureEx(laserTexture,
                       Vector2{static_cast<float>(lasers[i].posX -
                                                  (laserTexture.height / 4.0)),
                               static_cast<float>(lasers[i].posY -
                                                  (laserTexture.width / 4.0))},
-                      0, 0.5, WHITE);
+                      0, 4, WHITE);
       }
 
       player.Draw();

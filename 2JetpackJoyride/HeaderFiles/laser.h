@@ -7,8 +7,8 @@ class Laser {
 public:
   float posX;
   float posY;
-  int width;
-  int height;
+  float width;
+  float height;
 
   Color color;
 
