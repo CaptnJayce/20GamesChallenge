@@ -36,6 +36,7 @@ void Laser::Update(Player &player, std::vector<Laser> &laser) {
   }
 
   // Collisions
+  // MODIFY WHEN RESTART MENU IS ADDED
   for (auto it = laser.begin(); it != laser.end();) {
     if (CheckCollisionRecs(
             (Rectangle){it->posX, it->posY, it->width, it->height},
