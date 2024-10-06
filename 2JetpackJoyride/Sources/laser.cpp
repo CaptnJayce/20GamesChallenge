@@ -43,6 +43,7 @@ void Laser::Update(Player &player, std::vector<Laser> &laser) {
             (Rectangle){player.posX, player.posY, (float)player.width,
                         (float)player.height})) {
       it = laser.erase(it);
+      player.alive = false;
     } else {
       ++it;
     }

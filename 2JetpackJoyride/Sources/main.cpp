@@ -21,6 +21,7 @@
 #include "../HeaderFiles/laser.h"
 #include "../HeaderFiles/player.h"
 #include "../HeaderFiles/room.h"
+#include "../HeaderFiles/textures.h"
 
 using namespace std;
 
@@ -66,12 +67,7 @@ int main() {
   InitWindow(screenWidth, screenHeight, "Jetpack Joyride Clone");
   SetTargetFPS(60);
 
-  Texture2D playerTexture = LoadTexture("../Sprites/jetpackjimmy.png");
-  Texture2D coinTexture = LoadTexture("../Sprites/coin.png");
-  Texture2D backgroundTexture = LoadTexture("../Backgrounds/background1.png");
-  Texture2D floorTexture = LoadTexture("../Backgrounds/floor.png");
-  Texture2D roofTexutre = LoadTexture("../Backgrounds/roof.png");
-  Texture2D laserTexture = LoadTexture("../Sprites/obstacle.png");
+  Textures sprite;
 
   while (WindowShouldClose() == false) {
     if (currentScreen == MENU) {
@@ -101,6 +97,15 @@ int main() {
       if (IsKeyPressed(KEY_BACKSPACE)) {
         currentScreen = MENU;
       }
+    }
+
+    if (currentScreen == GAME_OVER) {
+      DrawText("Game Over!", screenWidth / 2 - MeasureText("Main Menu", 60) / 2,
+               50, 60, WHITE);
+    }
+
+    if (player.alive == false) {
+      currentScreen = GAME_OVER;
     }
 
     BeginDrawing();
@@ -141,7 +146,6 @@ int main() {
         floor.push_back({Room(0 + spacing, screenHeight - 80)});
         spacing += 2000;
       }
-
       // check if vector is empty and if its far enough off-screen to not
       // be seen when unloading
       if (!roof.empty() &&
@@ -165,39 +169,41 @@ int main() {
         roof[i].Draw();
         floor[i].Draw();
 
-        DrawTextureEx(backgroundTexture,
+        DrawTextureEx(sprite.backgroundTexture,
                       Vector2{roof[i].posX, roof[i].posY + 40}, 0, 2, WHITE);
-        DrawTextureEx(floorTexture, Vector2{floor[i].posX, floor[i].posY}, 0, 2,
-                      WHITE);
-        DrawTextureEx(roofTexutre, Vector2{roof[i].posX, roof[i].posY}, 0, 2,
-                      WHITE);
+        DrawTextureEx(sprite.floorTexture,
+                      Vector2{floor[i].posX, floor[i].posY}, 0, 2, WHITE);
+        DrawTextureEx(sprite.roofTexture, Vector2{roof[i].posX, roof[i].posY},
+                      0, 2, WHITE);
       }
 
       for (int i = 0; i < coins.size(); i++) {
         std::cout << "drawing coins" << std::endl;
         coins[i].Draw();
         DrawTextureEx(
-            coinTexture,
-            Vector2{
-                static_cast<float>(coins[i].posX - (coinTexture.height / 4.0)),
-                static_cast<float>(coins[i].posY - (coinTexture.width / 4.0))},
+            sprite.coinTexture,
+            Vector2{static_cast<float>(coins[i].posX -
+                                       (sprite.coinTexture.height / 4.0)),
+                    static_cast<float>(coins[i].posY -
+                                       (sprite.coinTexture.width / 4.0))},
             0, 0.5, WHITE);
       }
 
       for (int i = 0; i < lasers.size(); i++) {
         std::cout << "drawing laser" << std::endl;
         lasers[i].Draw();
-        DrawTextureEx(laserTexture,
-                      Vector2{static_cast<float>(lasers[i].posX -
-                                                 (laserTexture.height / 4.0)),
-                              static_cast<float>(lasers[i].posY -
-                                                 (laserTexture.width / 4.0))},
-                      0, 4, WHITE);
+        DrawTextureEx(
+            sprite.laserTexture,
+            Vector2{static_cast<float>(lasers[i].posX -
+                                       (sprite.laserTexture.height / 4.0)),
+                    static_cast<float>(lasers[i].posY -
+                                       (sprite.laserTexture.width / 4.0))},
+            0, 4, WHITE);
       }
 
       player.Draw();
-      DrawTextureEx(playerTexture, Vector2{player.posX - 10, player.posY - 5},
-                    0, 1, WHITE);
+      DrawTextureEx(sprite.playerTexture,
+                    Vector2{player.posX - 10, player.posY - 5}, 0, 1, WHITE);
       EndMode2D();
 
       // draws in screen space after camera has ended
@@ -211,6 +217,6 @@ int main() {
   }
 
   CloseAudioDevice();
-  UnloadTexture(playerTexture);
+  UnloadTexture(sprite.playerTexture);
   CloseWindow();
 }

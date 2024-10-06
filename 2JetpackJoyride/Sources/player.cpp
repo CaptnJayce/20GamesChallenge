@@ -13,6 +13,7 @@ Player::Player(float playerX, float playerY) {
   color = {240, 15, 15, 50};
   dist = 0;
   toSpawn = 0;
+  alive = true;
 }
 
 void Player::Draw() { DrawRectangle(posX, posY, width, height, color); }
@@ -38,7 +39,6 @@ void Player::Update(int moveUp) {
 
   // pick to spawn coins or lasers
   if (dist > 200) {
-    std::cout << "spawning" << std::endl;
     srand(time(0));
     toSpawn = (rand() % 2) + 1;
     dist = 0;

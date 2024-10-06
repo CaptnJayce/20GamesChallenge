@@ -11,6 +11,7 @@ public:
   int width;
   int dist;
   int toSpawn;
+  bool alive;
 
   Color color;
 
