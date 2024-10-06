@@ -1,15 +1,3 @@
-// TO DO //
-
-// REFACTORING
-// Camera
-// Texture Handling
-
-// IMPLEMENTATION
-// Sounds
-// Floor + Roof Textures
-// Backgrounds
-// Speed Curve
-
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
@@ -21,6 +9,7 @@
 #include "../HeaderFiles/laser.h"
 #include "../HeaderFiles/player.h"
 #include "../HeaderFiles/room.h"
+#include "../HeaderFiles/sound.h"
 #include "../HeaderFiles/textures.h"
 
 using namespace std;
@@ -36,10 +25,6 @@ int spacing;
 
 int totalDistance;
 
-bool muted = false;
-
-float volume = 0.2;
-
 vector<Coin> coins;
 vector<Laser> lasers;
 Coin coin(50, 50);
@@ -48,10 +33,8 @@ Player player(50, 600);
 
 int main() {
   InitAudioDevice();
-  SetMasterVolume(volume);
-
-  Sound pressed = LoadSound("../Sounds/soundTest.mp3");
-  Sound coinPickup = LoadSound("../Sounds/coin_pickup_1.wav");
+  Sounds sound;
+  SetMasterVolume(sound.volume);
 
   GameScreen currentScreen = MENU;
 
@@ -63,7 +46,6 @@ int main() {
   camera.rotation = 0.0f;
   camera.zoom = 1.0f;
 
-  cout << "Starting Game" << endl;
   InitWindow(screenWidth, screenHeight, "Jetpack Joyride Clone");
   SetTargetFPS(60);
 
@@ -72,7 +54,7 @@ int main() {
   while (WindowShouldClose() == false) {
     if (currentScreen == MENU) {
       if (IsKeyPressed(KEY_ENTER)) {
-        PlaySound(pressed);
+        PlaySound(sound.pressed);
         currentScreen = GAME;
       }
 
@@ -81,14 +63,12 @@ int main() {
       }
 
       if (IsKeyReleased(KEY_M)) {
-        if (muted == false) {
-          cout << "muted" << endl;
+        if (sound.muted == false) {
           SetMasterVolume(0);
-          muted = true;
+          sound.muted = true;
         } else {
-          cout << "unmuted" << endl;
-          SetMasterVolume(volume);
-          muted = false;
+          SetMasterVolume(sound.volume);
+          sound.muted = false;
         }
       }
     }
@@ -133,10 +113,9 @@ int main() {
       laser.Update(player, lasers);
 
       if (coin.total > prevTotal) {
-        PlaySound(coinPickup);
+        PlaySound(sound.coinPickup);
       }
 
-      /* cout << player.dist << endl; */
       totalDistance += 1;
 
       camera.target = (Vector2){player.posX + 20, screenHeight / 2.0f};
@@ -165,7 +144,7 @@ int main() {
 
       BeginMode2D(camera);
 
-      for (int i = 0; i < roof.size(); i++) {
+      for (std::size_t i = 0; i < roof.size(); i++) {
         roof[i].Draw();
         floor[i].Draw();
 
@@ -177,8 +156,7 @@ int main() {
                       0, 2, WHITE);
       }
 
-      for (int i = 0; i < coins.size(); i++) {
-        std::cout << "drawing coins" << std::endl;
+      for (std::size_t i = 0; i < coins.size(); i++) {
         coins[i].Draw();
         DrawTextureEx(
             sprite.coinTexture,
@@ -189,8 +167,7 @@ int main() {
             0, 0.5, WHITE);
       }
 
-      for (int i = 0; i < lasers.size(); i++) {
-        std::cout << "drawing laser" << std::endl;
+      for (std::size_t i = 0; i < lasers.size(); i++) {
         lasers[i].Draw();
         DrawTextureEx(
             sprite.laserTexture,
