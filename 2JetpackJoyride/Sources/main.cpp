@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <cstdlib>
 #include <raylib.h>
 #include <vector>
 
@@ -103,7 +102,6 @@ int main() {
     if (currentScreen == GAME) {
       prevTotal = coin.total;
 
-      game.Update();
       player.Update(KEY_SPACE);
       coin.Update(player, coins);
       laser.Update(player, lasers);
@@ -139,42 +137,12 @@ int main() {
 
       BeginMode2D(camera);
 
-      // GAME LOGIC
-      for (size_t i = 0; i < roof.size(); i++) {
-        roof[i].Draw();
-        floor[i].Draw();
-
-        DrawTextureEx(sprite.backgroundTexture,
-                      Vector2{roof[i].posX, roof[i].posY + 40}, 0, 2, WHITE);
-        DrawTextureEx(sprite.floorTexture,
-                      Vector2{floor[i].posX, floor[i].posY}, 0, 2, WHITE);
-        DrawTextureEx(sprite.roofTexture, Vector2{roof[i].posX, roof[i].posY},
-                      0, 2, WHITE);
-      }
-
-      for (size_t i = 0; i < coins.size(); i++) {
-        coins[i].Draw();
-        DrawTextureEx(
-            sprite.coinTexture,
-            Vector2{static_cast<float>(coins[i].posX -
-                                       (sprite.coinTexture.height / 4.0)),
-                    static_cast<float>(coins[i].posY -
-                                       (sprite.coinTexture.width / 4.0))},
-            0, 0.5, WHITE);
-      }
-
-      for (size_t i = 0; i < lasers.size(); i++) {
-        lasers[i].Draw();
-        DrawTextureEx(
-            sprite.laserTexture,
-            Vector2{static_cast<float>(lasers[i].posX -
-                                       (sprite.laserTexture.height / 4.0)),
-                    static_cast<float>(lasers[i].posY -
-                                       (sprite.laserTexture.width / 4.0))},
-            0, 4, WHITE);
-      }
-
       player.Draw();
+
+      game.DrawRoofAndFloor(roof, floor, sprite);
+      game.DrawCoins(coins, sprite);
+      game.DrawLasers(lasers, sprite);
+
       DrawTextureEx(sprite.playerTexture,
                     Vector2{player.posX - 10, player.posY - 5}, 0, 1, WHITE);
       EndMode2D();
