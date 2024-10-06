@@ -1,7 +1,5 @@
 #include <algorithm>
 #include <cstdlib>
-#include <iostream>
-#include <ostream>
 #include <raylib.h>
 #include <vector>
 
@@ -144,7 +142,7 @@ int main() {
 
       BeginMode2D(camera);
 
-      for (std::size_t i = 0; i < roof.size(); i++) {
+      for (size_t i = 0; i < roof.size(); i++) {
         roof[i].Draw();
         floor[i].Draw();
 
@@ -156,7 +154,7 @@ int main() {
                       0, 2, WHITE);
       }
 
-      for (std::size_t i = 0; i < coins.size(); i++) {
+      for (size_t i = 0; i < coins.size(); i++) {
         coins[i].Draw();
         DrawTextureEx(
             sprite.coinTexture,
@@ -167,7 +165,7 @@ int main() {
             0, 0.5, WHITE);
       }
 
-      for (std::size_t i = 0; i < lasers.size(); i++) {
+      for (size_t i = 0; i < lasers.size(); i++) {
         lasers[i].Draw();
         DrawTextureEx(
             sprite.laserTexture,
