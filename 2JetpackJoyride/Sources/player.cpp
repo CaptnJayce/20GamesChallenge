@@ -1,8 +1,7 @@
 #include "../HeaderFiles/player.h"
+#include "../HeaderFiles/gamelogic.h"
 #include <iostream>
 #include <raylib.h>
-
-extern int screenHeight;
 
 Player::Player(float playerX, float playerY) {
   height = 60;

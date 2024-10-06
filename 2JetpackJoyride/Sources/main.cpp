@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "../HeaderFiles/coin.h"
+#include "../HeaderFiles/gamelogic.h"
 #include "../HeaderFiles/laser.h"
 #include "../HeaderFiles/player.h"
 #include "../HeaderFiles/room.h"
@@ -14,14 +15,9 @@ using namespace std;
 
 enum GameScreen { MENU, GAME, GAME_OVER };
 
-int screenWidth = 1200;
-int screenHeight = 800;
-
 int prevTotal;
 
 int spacing;
-
-int totalDistance;
 
 vector<Coin> coins;
 vector<Laser> lasers;
@@ -32,6 +28,7 @@ Player player(50, 600);
 int main() {
   InitAudioDevice();
   Sounds sound;
+  GameLogic game;
   SetMasterVolume(sound.volume);
 
   GameScreen currentScreen = MENU;
@@ -106,6 +103,7 @@ int main() {
     if (currentScreen == GAME) {
       prevTotal = coin.total;
 
+      game.Update();
       player.Update(KEY_SPACE);
       coin.Update(player, coins);
       laser.Update(player, lasers);
@@ -114,8 +112,6 @@ int main() {
         PlaySound(sound.coinPickup);
       }
 
-      totalDistance += 1;
-
       camera.target = (Vector2){player.posX + 20, screenHeight / 2.0f};
 
       if (player.posX + screenWidth > spacing) {
@@ -123,6 +119,7 @@ int main() {
         floor.push_back({Room(0 + spacing, screenHeight - 80)});
         spacing += 2000;
       }
+
       // check if vector is empty and if its far enough off-screen to not
       // be seen when unloading
       if (!roof.empty() &&
@@ -142,6 +139,7 @@ int main() {
 
       BeginMode2D(camera);
 
+      // GAME LOGIC
       for (size_t i = 0; i < roof.size(); i++) {
         roof[i].Draw();
         floor[i].Draw();
@@ -184,7 +182,7 @@ int main() {
       // draws in screen space after camera has ended
       DrawText(TextFormat("%i", coin.total), screenWidth / 2, screenHeight - 20,
                20, WHITE);
-      DrawText(TextFormat("%i", totalDistance / 10), screenWidth / 4,
+      DrawText(TextFormat("%i", game.totalDistance / 10), screenWidth / 4,
                screenHeight - 20, 20, WHITE);
     }
 
