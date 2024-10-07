@@ -9,6 +9,7 @@ public:
   float posY;
   float width;
   float height;
+  bool isRotated;
 
   Color color;
 

@@ -42,12 +42,23 @@ void GameLogic::DrawCoins(std::vector<Coin> &coins, Textures &sprite) {
 // Draw lasers
 void GameLogic::DrawLasers(std::vector<Laser> &lasers, Textures &sprite) {
   for (auto &laser : lasers) {
-    laser.Draw();
-    DrawTextureEx(
-        sprite.laserTexture,
-        Vector2{
-            static_cast<float>(laser.posX - (sprite.laserTexture.height / 4.0)),
-            static_cast<float>(laser.posY - (sprite.laserTexture.width / 4.0))},
-        0, 4, WHITE);
+    if (laser.isRotated) {
+      DrawTextureEx(sprite.laserTexture,
+                    Vector2{static_cast<float>(laser.posX),
+                            static_cast<float>(laser.posY)},
+                    90.0f, 4, WHITE);
+
+      DrawRectangle(laser.posX - 190, laser.posY + 12, laser.height,
+                    laser.width, laser.color);
+    } else {
+      laser.Draw();
+      DrawTextureEx(
+          sprite.laserTexture,
+          Vector2{static_cast<float>(laser.posX -
+                                     (sprite.laserTexture.height / 4.0)),
+                  static_cast<float>(laser.posY -
+                                     (sprite.laserTexture.width / 4.0))},
+          0, 4, WHITE);
+    }
   }
 }

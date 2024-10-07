@@ -31,6 +31,7 @@ void Coin::Update(Player &player, std::vector<Coin> &coin) {
     // COIN SPAWNER
     // Straight line
     if (coinPattern == 1) {
+      std::cout << "spawning coin 1" << std::endl;
       for (int i = 0; i < coinsToSpawn; i++) {
         coin.push_back(Coin(player.posX + 1300 + coinSpacing, coinHeight));
         coinSpacing += 50;
@@ -39,6 +40,8 @@ void Coin::Update(Player &player, std::vector<Coin> &coin) {
 
     // Diagonal down
     if (coinPattern == 2) {
+      std::cout << "spawning coin 2" << std::endl;
+
       for (int i = 0; i < coinsToSpawn; i++) {
         coin.push_back(
             Coin(player.posX + 1300 + coinSpacing, 100.0 + coinSpacing));
@@ -48,6 +51,8 @@ void Coin::Update(Player &player, std::vector<Coin> &coin) {
 
     // Diagonal up
     if (coinPattern == 3) {
+      std::cout << "spawning coin 3" << std::endl;
+
       for (int i = 0; i < coinsToSpawn; i++) {
         coin.push_back(
             Coin(player.posX + 1300 + coinSpacing, 700.0 - coinSpacing));
