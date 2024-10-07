@@ -48,8 +48,6 @@ void GameLogic::DrawLasers(std::vector<Laser> &lasers, Textures &sprite) {
                             static_cast<float>(laser.posY)},
                     90.0f, 4, WHITE);
 
-      DrawRectangle(laser.posX - 190, laser.posY + 12, laser.height,
-                    laser.width, laser.color);
     } else {
       laser.Draw();
       DrawTextureEx(

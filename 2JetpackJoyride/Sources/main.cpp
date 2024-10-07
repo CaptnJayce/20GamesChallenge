@@ -155,6 +155,7 @@ int main() {
       // draws in screen space after camera has ended
       DrawText(TextFormat("%i", coin.total), screenWidth / 2, screenHeight - 20,
                20, WHITE);
+      game.totalDistance++;
       DrawText(TextFormat("%i", game.totalDistance / 10), screenWidth / 4,
                screenHeight - 20, 20, WHITE);
     }
