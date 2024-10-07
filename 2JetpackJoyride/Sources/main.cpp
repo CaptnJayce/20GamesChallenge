@@ -110,7 +110,7 @@ int main() {
         PlaySound(sound.coinPickup);
       }
 
-      camera.target = (Vector2){player.posX + 20, screenHeight / 2.0f};
+      camera.target = (Vector2){player.posX - 2000, screenHeight / 2.0f};
 
       if (player.posX + screenWidth > spacing) {
         roof.push_back({Room(0 + spacing, 40)});
@@ -133,6 +133,11 @@ int main() {
                                        player.posX - screenWidth / 10.0f;
                               }),
                     coins.end());
+      }
+
+      if (!lasers.empty() &&
+          lasers.front().posX + 1500 < player.posX - screenWidth / 10.0f) {
+        lasers.erase(lasers.begin());
       }
 
       BeginMode2D(camera);

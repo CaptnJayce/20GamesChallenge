@@ -20,7 +20,7 @@ void Laser::Update(Player &player, std::vector<Laser> &laser) {
 
   if (player.toSpawn == 2) {
     srand(time(0));
-    const int laserPattern = (rand() % 1) + 1;
+    const int laserPattern = (rand() % 2) + 1;
 
     // LASER SPAWNER
     if (laserPattern == 1) {
@@ -30,6 +30,7 @@ void Laser::Update(Player &player, std::vector<Laser> &laser) {
 
     if (laserPattern == 2) {
       std::cout << "spawning laser pattern 2" << std::endl;
+      laser.push_back(Laser(player.posX + 1300, 500));
     }
 
     player.toSpawn = 0;
