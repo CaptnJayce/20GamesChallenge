@@ -141,7 +141,6 @@ int main() {
       }
 
       BeginMode2D(camera);
-
       player.Draw();
 
       game.DrawRoofAndFloor(roof, floor, sprite);

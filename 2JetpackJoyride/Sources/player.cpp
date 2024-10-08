@@ -37,10 +37,26 @@ void Player::Update(int moveUp) {
   }
 
   // pick to spawn coins or lasers
-  if (dist > 200) {
+  if (dist > 200 && speed < 600) {
     srand(time(0));
     toSpawn = (rand() % 2) + 1;
     dist = 0;
+
+    // speed "curve"
+    if (speed < 1200) {
+      speed += 25;
+    }
+  }
+
+  // spawn objects quicker as speed increases
+  if (dist > 100 && speed >= 600) {
+    srand(time(0));
+    toSpawn = (rand() % 2) + 1;
+    dist = 0;
+
+    if (speed < 1200) {
+      speed += 25;
+    }
   }
 
   dist++;
