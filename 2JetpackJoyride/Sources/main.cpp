@@ -74,8 +74,7 @@ int main() {
     }
 
     if (currentScreen == GAME_OVER) {
-      DrawText("Game Over!", screenWidth / 2 - MeasureText("Main Menu", 60) / 2,
-               50, 60, WHITE);
+      DrawText("Game Over!", screenWidth / 2 - MeasureText("Main Menu", 60) / 2, 50, 60, WHITE);
     }
 
     if (player.alive == false) {
@@ -85,18 +84,11 @@ int main() {
     BeginDrawing();
     ClearBackground(BLACK);
     if (currentScreen == MENU) {
-      DrawText("Main Menu", screenWidth / 2 - MeasureText("Main Menu", 60) / 2,
-               50, 60, WHITE);
+      DrawText("Main Menu", screenWidth / 2 - MeasureText("Main Menu", 60) / 2, 50, 60, WHITE);
       DrawRectangle(screenWidth / 3, 110, screenWidth / 3, 4, WHITE);
-      DrawText("Press Enter to Play",
-               screenWidth / 2 - MeasureText("Press Enter to Play", 30) / 2,
-               screenHeight / 2, 30, WHITE);
-      DrawText("Press Escape to Quit",
-               screenWidth / 2 - MeasureText("Press Escape to Quit", 30) / 2,
-               screenHeight / 2 + 40, 30, WHITE);
-      DrawText("Press M to Mute",
-               screenWidth / 2 - MeasureText("Press M to Mute", 30) / 2,
-               screenHeight / 2 + 80, 30, WHITE);
+      DrawText("Press Enter to Play", screenWidth / 2 - MeasureText("Press Enter to Play", 30) / 2, screenHeight / 2, 30, WHITE);
+      DrawText("Press Escape to Quit", screenWidth / 2 - MeasureText("Press Escape to Quit", 30) / 2, screenHeight / 2 + 40, 30, WHITE);
+      DrawText("Press M to Mute", screenWidth / 2 - MeasureText("Press M to Mute", 30) / 2, screenHeight / 2 + 80, 30, WHITE);
     }
 
     if (currentScreen == GAME) {
@@ -120,23 +112,16 @@ int main() {
 
       // check if vector is empty and if its far enough off-screen to not
       // be seen when unloading
-      if (!roof.empty() &&
-          roof.front().posX + 2000 < player.posX - screenWidth / 10.0f) {
+      if (!roof.empty() && roof.front().posX + 2000 < player.posX - screenWidth / 10.0f) {
         roof.erase(roof.begin());
         floor.erase(floor.begin());
       }
 
       if (!coins.empty()) {
-        coins.erase(remove_if(coins.begin(), coins.end(),
-                              [&](const Coin &coin) {
-                                return coin.posX <
-                                       player.posX - screenWidth / 10.0f;
-                              }),
-                    coins.end());
+        coins.erase(remove_if(coins.begin(), coins.end(), [&](const Coin &coin) { return coin.posX < player.posX - screenWidth / 10.0f; }), coins.end());
       }
 
-      if (!lasers.empty() &&
-          lasers.front().posX + 1500 < player.posX - screenWidth / 10.0f) {
+      if (!lasers.empty() && lasers.front().posX + 1500 < player.posX - screenWidth / 10.0f) {
         lasers.erase(lasers.begin());
       }
 
@@ -147,16 +132,13 @@ int main() {
       game.DrawCoins(coins, sprite);
       game.DrawLasers(lasers, sprite);
 
-      DrawTextureEx(sprite.playerTexture,
-                    Vector2{player.posX - 10, player.posY - 5}, 0, 1, WHITE);
+      DrawTextureEx(sprite.playerTexture, Vector2{player.posX - 10, player.posY - 5}, 0, 1, WHITE);
       EndMode2D();
 
       // draws in screen space after camera has ended
-      DrawText(TextFormat("%i", coin.total), screenWidth / 2, screenHeight - 20,
-               20, WHITE);
+      DrawText(TextFormat("%i", coin.total), screenWidth / 2, screenHeight - 20, 20, WHITE);
       game.totalDistance++;
-      DrawText(TextFormat("%i", game.totalDistance / 10), screenWidth / 4,
-               screenHeight - 20, 20, WHITE);
+      DrawText(TextFormat("%i", game.totalDistance / 10), screenWidth / 4, screenHeight - 20, 20, WHITE);
     }
 
     EndDrawing();

@@ -18,8 +18,7 @@ public:
   void Draw();
   void Update();
 
-  void DrawRoofAndFloor(std::vector<Room> &roof, std::vector<Room> &floor,
-                        Textures &sprite);
+  void DrawRoofAndFloor(std::vector<Room> &roof, std::vector<Room> &floor, Textures &sprite);
   void DrawCoins(std::vector<Coin> &coins, Textures &sprite);
   void DrawLasers(std::vector<Laser> &lasers, Textures &sprite);
 };

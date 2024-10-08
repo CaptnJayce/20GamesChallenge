@@ -25,8 +25,7 @@ void Coin::Update(Player &player, std::vector<Coin> &coin) {
     const int coinsToSpawn = (rand() % 5) + 1;
     const int coinPattern = (rand() % 3) + 1;
     int coinSpacing = 50;
-    const float coinHeight =
-        ((float)rand() / (float)RAND_MAX) * (700.0 - 100.0) + 100.0;
+    const float coinHeight = ((float)rand() / (float)RAND_MAX) * (700.0 - 100.0) + 100.0;
 
     // COIN SPAWNER
     // Straight line
@@ -43,8 +42,7 @@ void Coin::Update(Player &player, std::vector<Coin> &coin) {
       std::cout << "spawning coin 2" << std::endl;
 
       for (int i = 0; i < coinsToSpawn; i++) {
-        coin.push_back(
-            Coin(player.posX + 1300 + coinSpacing, 100.0 + coinSpacing));
+        coin.push_back(Coin(player.posX + 1300 + coinSpacing, 100.0 + coinSpacing));
         coinSpacing += 50;
       }
     }
@@ -54,8 +52,7 @@ void Coin::Update(Player &player, std::vector<Coin> &coin) {
       std::cout << "spawning coin 3" << std::endl;
 
       for (int i = 0; i < coinsToSpawn; i++) {
-        coin.push_back(
-            Coin(player.posX + 1300 + coinSpacing, 700.0 - coinSpacing));
+        coin.push_back(Coin(player.posX + 1300 + coinSpacing, 700.0 - coinSpacing));
         coinSpacing += 50;
       }
     }
@@ -65,10 +62,7 @@ void Coin::Update(Player &player, std::vector<Coin> &coin) {
 
   // Collisions
   for (auto it = coin.begin(); it != coin.end();) {
-    if (CheckCollisionCircleRec((Vector2){it->posX, it->posY}, it->radius,
-                                (Rectangle){player.posX, player.posY,
-                                            (float)player.width,
-                                            (float)player.height})) {
+    if (CheckCollisionCircleRec((Vector2){it->posX, it->posY}, it->radius, (Rectangle){player.posX, player.posY, (float)player.width, (float)player.height})) {
       it = coin.erase(it);
       total += 1;
     } else {

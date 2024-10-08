@@ -19,8 +19,7 @@ void Laser::Update(Player &player, std::vector<Laser> &laser) {
   if (player.toSpawn == 2) {
     srand(time(0));
     const int laserPattern = (rand() % 3) + 1;
-    const float laserHeight =
-        ((float)rand() / (float)RAND_MAX) * (700.0 - 100.0) + 100.0;
+    const float laserHeight = ((float)rand() / (float)RAND_MAX) * (700.0 - 100.0) + 100.0;
 
     if (laserPattern == 1) {
       laser.push_back(Laser(player.posX + 1300, 100));
@@ -48,9 +47,7 @@ void Laser::Update(Player &player, std::vector<Laser> &laser) {
       laserRect = {it->posX - 190, it->posY + 12, it->height, it->width};
     }
 
-    if (CheckCollisionRecs(laserRect, (Rectangle){player.posX, player.posY,
-                                                  (float)player.width,
-                                                  (float)player.height})) {
+    if (CheckCollisionRecs(laserRect, (Rectangle){player.posX, player.posY, (float)player.width, (float)player.height})) {
       it = laser.erase(it);
       player.alive = false;
     } else {
